@@ -40,6 +40,19 @@ print(f"Loaded: {DATA_PATH.name} | rows={len(df):,} | columns={df.shape[1]}")
 print("Column types:")
 print(df.dtypes.to_string())
 
+Loaded: housing.csv | rows=20,640 | columns=10
+Column types:
+longitude             float64
+latitude              float64
+housing_median_age      int64
+total_rooms             int64
+total_bedrooms        float64
+population              int64
+households              int64
+median_income         float64
+median_house_value      int64
+ocean_proximity        object
+
 SEEDS = (17, 29, 41, 53, 67)
 TEST_FRACTION = 0.20
 SPATIAL_CELL_DEGREES = 1.0
@@ -110,6 +123,12 @@ print("Split sample sizes (test-cell count is descriptive for both designs):")
 display(pd.DataFrame(split_rows).to_string(index=False))
 print("Models: income-only LinearRegression; RandomForestRegressor on non-location features; RandomForestRegressor on non-location + coordinates.")
 print(f"Random Forest settings: {RF_PARAMS}")
+
+Spatial grouping: 1-degree cells | unique cells=55
+Split sample sizes (test-cell count is descriptive for both designs):
+ design  repeat  train_rows  test_rows  test_cells\n random       1       16512       4128          49\n random       2       16512       4128          49\n random       3       16512       4128          49\n random       4       16512       4128          51\n random       5       16512       4128          48\nspatial       1       18763       1877          11\nspatial       2       14039       6601          11\nspatial       3       18234       2406          11\nspatial       4       15098       5542          11\nspatial       5       18708       1932          11
+Models: income-only LinearRegression; RandomForestRegressor on non-location features; RandomForestRegressor on non-location + coordinates.
+Random Forest settings: {'n_estimators': 300, 'min_samples_leaf': 2, 'random_state': 17, 'n_jobs': -1}
 
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
